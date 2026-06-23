@@ -1,4 +1,4 @@
-name: Python My School Test 
+name: Python My School Test Learning 01
 on:
  push: 
   branches: 
