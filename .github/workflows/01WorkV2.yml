@@ -34,14 +34,14 @@ jobs:
       - name: Test app with curl
         run: |
           curl --fail http://127.0.0.1:8002/pupil
-         # mkdir -p artifacts
-         # pytest --junitxml=artifacts/junit.xml --cov=. --cov-report=xml:artifacts/coverage.xml          
+          mkdir -p artifacts
+          pytest --junitxml=artifacts/junit.xml --cov=. --cov-report=xml:artifacts/coverage.xml          
 
-      #- name: Upload Artifacts 
-      #  uses: actions/upload-artifact@v7
-      #  with:           
-      #    name: python-test-artifacts
-      #    path: artifacts/
+      - name: Upload Artifacts 
+        uses: actions/upload-artifact@v7
+        with:           
+          name: python-test-artifacts
+          path: artifacts/
 
            
   build:
