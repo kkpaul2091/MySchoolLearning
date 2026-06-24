@@ -1,13 +1,23 @@
-name: Python My School Test 
+name: Python My School Test Learning 01
 on:
- push: 
-  branches: 
+  pull_request:
+    types:
+      - opened 
+    branches: 
     - main  # main
     - dev   # dev
     - 'uat-*'  # e.g. uat-new uat-old 
     - 'stg/**' # e.g. stg/new stg/old 
-  paths-ignore: 
-     - '.github/workflows/*'   # workflow should not run if you change this file and the event is push 
+  workflow_dispatch:
+  push: 
+    branches: 
+      - main  # main
+      - dev   # dev
+      - 'uat-*'  # e.g. uat-new uat-old 
+      - 'stg/**' # e.g. stg/new stg/old 
+    paths-ignore: 
+      - '.github/workflows/*'   # workflow should not run if you change this file and the event is push 
+    
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -44,6 +54,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        
+      - name: Debug image name
+        run: echo "${{ secrets.DOCKERHUB_USERNAME }}/my-school-pupil:1.0.0"
 
       - name: Build docker image 
         run: |
@@ -59,25 +72,4 @@ jobs:
         run: |
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/my-school-pupil:1.0.0
 
-  deploy: 
-    needs: build
-    runs-on: ubuntu-latest
-    
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-region: ap-southeast-2
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      - run: |
-          aws eks update-kubeconfig \
-            --name my-school-cluster \
-            --region ap-southeast-2
-
-      - run: |
-          kubectl rollout restart deployment/myschool-deployment-v3
-
-      
   

@@ -1,22 +1,8 @@
-name: Python My School Test Learning 01
-on:
-  pull_request:
-    types:
-      - opened 
-    branches: 
-    - main  # main
-    - dev   # dev
-    - 'uat-*'  # e.g. uat-new uat-old 
-    - 'stg/**' # e.g. stg/new stg/old 
-  workflow_dispatch:
+name: Python My School Test Learning Artifact 
+on:  
   push: 
     branches: 
-      - main  # main
-      - dev   # dev
-      - 'uat-*'  # e.g. uat-new uat-old 
-      - 'stg/**' # e.g. stg/new stg/old 
-    paths-ignore: 
-      - '.github/workflows/*'   # workflow should not run if you change this file and the event is push 
+      - main   
     
 jobs:
   test:
@@ -47,6 +33,13 @@ jobs:
       - name: Test app with curl
         run: |
           curl --fail http://127.0.0.1:8002/pupil
+
+      - name: Upload Artifacts 
+        uses: actions/upload-artifact@v7
+        with: 
+          name: python-dist
+          path: dist 
+           
   build:
     needs: test
     runs-on: ubuntu-latest
