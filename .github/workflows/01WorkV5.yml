@@ -9,13 +9,13 @@ env:
 
 jobs:
   test:
-    environment: testing 
+    environment: testing  # This job runs under ENV testing 
     env: 
-      MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}  # Only viewed from test job , defined in 'testing' environment 
-      MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}  # Only viewed from test job , defined in 'testing' environment 
-      MONGODB_HOST: cluster0.mp3lyec.mongodb.net         # Only viewed from test job 
+      MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}  # Only viewed from test job , defined in 'testing' environment as secret
+      MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}  # Only viewed from test job , defined in 'testing' environment as secret 
+      MONGODB_HOST: ${{ vars.MONGODB_HOST }}             # Only viewed from test job , defined in 'testing' environment as variable  
       MONGODB_APP_NAME: Cluster0                         # Only viewed from test job 
-
+ 
     runs-on: ubuntu-latest
 
     steps:
