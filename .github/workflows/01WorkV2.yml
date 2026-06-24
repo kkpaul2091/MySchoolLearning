@@ -3,9 +3,20 @@ on:
   pull_request:
     types:
       - opened 
+    branches: 
+    - main  # main
+    - dev   # dev
+    - 'uat-*'  # e.g. uat-new uat-old 
+    - 'stg/**' # e.g. stg/new stg/old 
   workflow_dispatch:
- 
-
+  push: 
+    branches: 
+      - main  # main
+      - dev   # dev
+      - 'uat-*'  # e.g. uat-new uat-old 
+      - 'stg/**' # e.g. stg/new stg/old 
+    paths-ignore: 
+      - '.github/workflows/*'   # workflow should not run if you change this file and the event is push 
     
 jobs:
   test:
