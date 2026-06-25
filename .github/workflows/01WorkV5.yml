@@ -129,7 +129,7 @@ jobs:
       - name: Output Information 
         run: |
           echo "My Lint  Status"
-          echo "${{ github }}"
+          echo "${{ toJson(github) }}"
 
 
   
