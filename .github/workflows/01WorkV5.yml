@@ -46,6 +46,7 @@ jobs:
   test:
     needs: lint
     environment: testing  # This job runs under ENV testing 
+    
     env: 
       MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}  # Only viewed from test job , defined in 'testing' environment as secret
       MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}  # Only viewed from test job , defined in 'testing' environment as secret 
@@ -53,15 +54,12 @@ jobs:
       MONGODB_APP_NAME: Cluster0                         # Only viewed from test job 
  
     runs-on: ubuntu-latest
+    container: 
+      image: python:3.12
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Setup Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: '3.12'
+        uses: actions/checkout@v6      
 
       - name: Install dependencies
         run: |
@@ -94,7 +92,7 @@ jobs:
           echo  "MONGODB_HOST: ${{ env.MONGODB_HOST }}"
           echo  "MONGODB_HOST: $MONGODB_HOST"
 
-           
+         
   build:
     needs: test
     runs-on: ubuntu-latest
