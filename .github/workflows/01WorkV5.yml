@@ -46,18 +46,26 @@ jobs:
   test:
     needs: lint
     environment: testing  # This job runs under ENV testing 
-    
-    env: 
-      MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}  # Only viewed from test job , defined in 'testing' environment as secret
-      MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}  # Only viewed from test job , defined in 'testing' environment as secret 
-      MONGODB_HOST: ${{ vars.MONGODB_HOST }}             # Only viewed from test job , defined in 'testing' environment as variable  
-      MONGODB_APP_NAME: Cluster0                         # Only viewed from test job 
- 
+
     runs-on: ubuntu-latest
 
     container: 
       image: python:3.12
 
+    
+    env: 
+      MONGODB_USERNAME: root # Need for service container below 
+      MONGODB_PASSWORD: example # Need for service container below 
+      MONGODB_CLUSTER_ADDRESS: mongodb # Need for service container below 
+      MONGODB_CONNECTION_PROTOCOL: mongodb   # Need for service container below 
+    
+    services: 
+       mongodb: 
+        image: mongo 
+        env:
+          MONGO_INITDB_ROOT_USERNAME: root
+          MONGO_INITDB_ROOT_PASSWORD: example
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4      
