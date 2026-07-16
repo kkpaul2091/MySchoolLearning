@@ -10,6 +10,11 @@ jobs:
               uses: actions/checkout@v6
             - name: Printing Folders 
               run: ls -R
+            - name: Present Working Directory 
+              run: pwd   
+            - name: List files from working directory
+              run: ls -l
+              working-directory: MySchoolLearning/MyWorkflows      
             
 
 
