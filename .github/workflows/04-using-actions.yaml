@@ -5,6 +5,9 @@ on: push
 jobs:
     build:
         runs-on: ubuntu-latest
+        defaults:
+            run:
+              working-directory: MyWorkflows                
         steps:
             - name: Checkout code
               uses: actions/checkout@v6
@@ -14,7 +17,7 @@ jobs:
               run: pwd   
             - name: List files from working directory
               run: ls -l
-              working-directory: MyWorkflows      
+              #working-directory: MyWorkflows      
             
 
 
