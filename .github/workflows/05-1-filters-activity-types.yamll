@@ -1,0 +1,31 @@
+name: 05 - 1 - Event Filters and Activity Types
+
+on: 
+  pull_request:
+    types: [opened, synchronize]
+    branches:
+      - main
+   
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+              working-directory: MyWorkflows                
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v6
+            - name: Printing Folders 
+              run: ls -R
+            - name: Present Working Directory 
+              run: pwd   
+            - name: List files from working directory
+              run: ls -l
+              #working-directory: MyWorkflows      
+            
+
+
+        
+
+  
