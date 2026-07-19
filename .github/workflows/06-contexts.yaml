@@ -5,10 +5,13 @@ on:
         branches:
         - main
     workflow_dispatch:
-       
+env:
+    MY_MONGODB_HOST_WORKFLOW: "WORKFLOW mongodb://localhost:27017"      
 jobs:
     echo-data:
         runs-on: ubuntu-latest
+        env:
+            MY_MONGODB_HOST_JOB: "JOB mongodb://localhost:27017"
         steps:
             - name:  Display Information              
               run: |
@@ -36,6 +39,10 @@ jobs:
                 echo "Commit Committer Email: ${{ github.event.head_commit.committer.email }}"
             - name: Retrieve Varibales 
               run: |
-                echo "Variable Value: ${{ vars.MONGODB_HOST }}"
+                echo "Hub Variable Value: ${{ vars.MONGODB_HOST }}"
                 
-              
+            - name: Print Env Var Information 
+              run: |
+                echo "Workflow Variable Value: ${{ env.MY_MONGODB_HOST_WORKFLOW }}"
+                echo "Variable Value: ${{ env.MY_MONGODB_HOST_JOB }}"
+           
