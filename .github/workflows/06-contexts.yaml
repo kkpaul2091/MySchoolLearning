@@ -1,0 +1,50 @@
+name: 06 - Contexts
+
+on: 
+    pull_request:
+      types:
+        - closed       
+      branches:
+          - main
+    
+env:
+    MY_MONGODB_HOST_WORKFLOW: "WORKFLOW mongodb://localhost:27017"      
+jobs:
+    echo-data:
+        runs-on: ubuntu-latest
+        env:
+            MY_MONGODB_HOST_JOB: "JOB mongodb://localhost:27017"
+        steps:
+            - name:  Display Information              
+              run: |
+                echo "Event Name: ${{ github.event_name }}"
+                echo "Ref: ${{ github.ref }}"
+                echo "SHA: ${{ github.sha }}"
+                echo "Actor: ${{ github.actor }}"
+                echo "Workflow: ${{ github.workflow }}"
+                echo "Run ID: ${{ github.run_id }}"
+                echo "Run number: ${{ github.run_number }}"
+            - name: Retrieve Repository Information 
+              run: |
+                echo "Repository: ${{ github.repository }}"
+                echo "Repository Owner: ${{ github.repository_owner }}"
+                echo "Repository URL: ${{ github.server_url }}/${{ github.repository }}"
+                echo "Repository Default Branch: ${{ github.event.repository.default_branch }}"
+                echo "Repository Visibility: ${{ github.event.repository.visibility }}"
+            - name: Retrieve Commit Information
+              run: |
+                echo "Commit Message: ${{ github.event.head_commit.message }}"
+                echo "Commit Timestamp: ${{ github.event.head_commit.timestamp }}"
+                echo "Commit Author Name: ${{ github.event.head_commit.author.name }}"
+                echo "Commit Author Email: ${{ github.event.head_commit.author.email }}"
+                echo "Commit Committer Name: ${{ github.event.head_commit.committer.name }}"
+                echo "Commit Committer Email: ${{ github.event.head_commit.committer.email }}"
+            - name: Retrieve Varibales 
+              run: |
+                echo "Hub Variable Value: ${{ vars.MONGODB_HOST }}"
+                
+            - name: Print Env Var Information 
+              run: |
+                echo "Workflow Variable Value: ${{ env.MY_MONGODB_HOST_WORKFLOW }}"
+                echo "Variable Value: ${{ env.MY_MONGODB_HOST_JOB }}"
+           
