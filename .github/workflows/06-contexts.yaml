@@ -1,10 +1,13 @@
 name: 06 - Contexts
 
 on: 
-    push:
-        branches:
-        - main
-    workflow_dispatch:
+    pull_request:
+      types:
+        - opened
+        - synchronize
+      branches:
+          - main
+    
 env:
     MY_MONGODB_HOST_WORKFLOW: "WORKFLOW mongodb://localhost:27017"      
 jobs:
