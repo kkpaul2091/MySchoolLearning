@@ -20,6 +20,12 @@ on:
         type: string
         required: true
         default: "myschool-deployment-v3"
+    
+      label:
+        description: "Labels"
+        type: string
+        required: true
+        default: "myschool-v3"
 
       namespace:
         description: "Kubernetes namespace"
@@ -61,4 +67,10 @@ jobs:
       - name: Check rollout status
         run: |
           kubectl rollout status deployment/${{ inputs.deployment-name }} \
+            -n "${{ inputs.namespace }}"
+
+     
+      - name: Test deployment
+        run: |
+          kubectl get deployment/${{ inputs.deployment-name }} \
             -n "${{ inputs.namespace }}"
