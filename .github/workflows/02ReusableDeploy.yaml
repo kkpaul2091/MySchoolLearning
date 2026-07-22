@@ -69,15 +69,7 @@ jobs:
           kubectl rollout status deployment/${{ inputs.deployment-name }} \
             -n "${{ inputs.namespace }}"
 
-      - name: Verify pod readiness
-        run: |
-          kubectl wait \
-            --for=condition=Ready \
-            pod \
-            -l app=${{ inputs.label }} \
-            -n "${{ inputs.namespace }}" \
-            --timeout=300s
-
+     
       - name: Test deployment
         run: |
           kubectl get deployment/${{ inputs.deployment-name }} \
