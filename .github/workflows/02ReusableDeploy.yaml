@@ -20,6 +20,12 @@ on:
         type: string
         required: true
         default: "myschool-deployment-v3"
+    
+      label:
+        description: "Labels"
+        type: string
+        required: true
+        default: "myschool-v3"
 
       namespace:
         description: "Kubernetes namespace"
@@ -61,4 +67,18 @@ jobs:
       - name: Check rollout status
         run: |
           kubectl rollout status deployment/${{ inputs.deployment-name }} \
+            -n "${{ inputs.namespace }}"
+
+      - name: Verify pod readiness
+        run: |
+          kubectl wait \
+            --for=condition=Ready \
+            pod \
+            -l app=${{ inputs.label }} \
+            -n "${{ inputs.namespace }}" \
+            --timeout=300s
+
+      - name: Test deployment
+        run: |
+          kubectl get deployment/${{ inputs.deployment-name }} \
             -n "${{ inputs.namespace }}"
