@@ -84,6 +84,7 @@ jobs:
               https://pupil.mremasrejoy.com/pupil)
 
               if [ "$STATUS" = "200" ]; then
+                echo "✅ Health check passed. HTTP 200 received."
                 exit 0
               fi
 
