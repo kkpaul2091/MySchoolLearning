@@ -74,3 +74,20 @@ jobs:
         run: |
           kubectl get deployment/${{ inputs.deployment-name }} \
             -n "${{ inputs.namespace }}"
+
+      - name: Verify endpoint
+        run: |
+
+            for i in {1..10}
+            do
+              STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+              https://pupil.mremasrejoy.com/pupil)
+
+              if [ "$STATUS" = "200" ]; then
+                exit 0
+              fi
+
+              sleep 10
+            done
+
+            exit 1
