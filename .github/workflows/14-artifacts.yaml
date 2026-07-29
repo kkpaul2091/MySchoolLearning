@@ -1,0 +1,29 @@
+name: 14 - Working with Artifacts
+
+on: 
+  workflow_dispatch
+
+jobs: 
+  
+  test-build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: MyWorflows/Reuseable
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run tests
+        run: |
+          echo "Running tests..."
+          ls -la 
+          echo "Tests completed."
+
+      - name: Upload test results as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+
+
