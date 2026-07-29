@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: MyWorflows/Reusable
+        working-directory: MyWorkflows/Reusable
     
     steps:
       - name: Checkout code
