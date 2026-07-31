@@ -37,4 +37,8 @@ jobs:
         uses: actions/download-artifact@v7
         with:
           name: test-results
+      
+      - name: Verify downloaded artifact
+        run: |
+          ls -lahR
 
