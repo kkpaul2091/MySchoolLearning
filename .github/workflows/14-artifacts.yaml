@@ -34,7 +34,7 @@ jobs:
           echo "Artifacts listed."
 
       - name: Download test results artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v7
         with:
           name: test-results
 
