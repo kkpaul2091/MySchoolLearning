@@ -25,5 +25,16 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: test-results
-          path: .
+          path: MyWorkflows/Reusable/*
+      
+      - name: List artifacts
+        run: |
+          echo "Listing artifacts..."
+          ls -la 
+          echo "Artifacts listed."
+
+      - name: Download test results artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: test-results
 
