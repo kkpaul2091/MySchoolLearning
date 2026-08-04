@@ -4,6 +4,8 @@ from pymongo.server_api import ServerApi
 from bson.objectid import ObjectId
 import os
 from urllib.parse import quote_plus
+from prometheus_client import Counter, generate_latest
+from prometheus_client import CONTENT_TYPE_LATEST
 
 app = Flask(__name__)
 

@@ -1,3 +1,4 @@
 pymongo
 flask
 pytest==8.3.5
+prometheus_client
